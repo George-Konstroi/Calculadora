@@ -24,7 +24,7 @@ type
     function Somar(valor1, valor2: Integer): Integer;
     function Subtrair(valor1, valor2: Integer): Integer;
     function Multiplicar(valor1, valor2: Integer): Integer;
-    function Dividir(valor1, valor2: Integer): Integer;
+    function Dividir(valor1, valor2: Real): Real;
   end;
 
 var
@@ -36,7 +36,7 @@ implementation
 
 procedure TFormCalculadora.ButtonDividirClick(Sender: TObject);
 begin
-  EditResultado.Text := IntToStr(Dividir(StrToInt(EditValor1.Text), StrToInt(EditValor2.Text)));
+  EditResultado.Text := FloatToStr(Dividir(StrToInt(EditValor1.Text), StrToInt(EditValor2.Text)))
 end;
 
 procedure TFormCalculadora.ButtonMultiplicarClick(Sender: TObject);
@@ -54,9 +54,15 @@ begin
   EditResultado.Text := IntToStr(Subtrair(StrToInt(EditValor1.Text), StrToInt(EditValor2.Text)));
 end;
 
-function TFormCalculadora.Dividir(valor1, valor2: Integer): Integer;
+function TFormCalculadora.Dividir(valor1, valor2: Real): Real;
 begin
-  Result := StrToInt((valor1 / valor2).ToString);
+  if valor2 = 0 then
+  begin
+    Result := 0;
+    Exit;
+  end;
+
+  Result := valor1 / valor2;
 end;
 
 function TFormCalculadora.Multiplicar(valor1, valor2: Integer): Integer;
